@@ -322,7 +322,7 @@ if __name__ == "__main__":
         75,
         10,
         8,
-        "This PDF only works in Chromium-based browsers. Visit https://github.com/EvanZhouDev/llm-pdf for more information.",
+        "This PDF only works in Chromium-based browsers. Visit https://github.com/EvanZhouDev/llm.pdf for more information.",
     )
 
     page.AA = PdfDict()
