@@ -14,14 +14,44 @@ Combined with embedding the entire LLM file into the PDF with base64, we are abl
 
 [Watch the video on YouTube](https://youtu.be/4cBom2lAx-g) to learn the full story!
 
+## Rebuild from Source
+
+The complete build has been tested on Ubuntu 24.04 x86_64. It uses the project's
+pinned Emscripten 1.39.20-fastcomp asm.js toolchain and llama.cpp commit.
+
+```sh
+# Install OS packages and pinned Python dependencies.
+./scripts/setup-build-env.sh
+
+# Download the pinned toolchains and rebuild llama/llama.js.
+./llama/build-llama-js.sh
+
+# Download the existing 3M TinyStories demo model and build a PDF.
+OUTPUT_DIR="$PWD/rebuilds" ./scripts/build-pdfs.sh tinystories
+```
+
+The demo artifact is written to `rebuilds/tinystories-llm.pdf`. To rebuild all
+four models listed in `scripts/build-pdfs.sh`, omit the model name (or use
+`all`). The model downloads and generated PDFs are large, so they are not
+installed as part of the Python environment setup.
+
+Both build scripts can be run from any working directory. Pass an output path
+to `llama/build-llama-js.sh` to test the compiler without replacing the checked
+in `llama/llama.js`:
+
+```sh
+./llama/build-llama-js.sh /tmp/llama.js
+```
+
 ## Load a Custom Model in the PDF
 
 The `scripts/generatePDF.py` file will help you create a PDF with any compatible LLM.
 
 The easiest way to get started is with the following command:
 ```sh
-cd scripts
-python3 generatePDF.py --model "path/for/model.gguf" --output "path/to/output.pdf"
+./.venv/bin/python scripts/generatePDF.py \
+  --model "path/to/model.gguf" \
+  --output "path/to/output.pdf"
 ```
 
 ### Choosing a Model

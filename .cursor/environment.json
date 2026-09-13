@@ -1,0 +1,4 @@
+{
+  "name": "llm.pdf build",
+  "install": "./scripts/setup-build-env.sh && ./llama/build-llama-js.sh"
+}
